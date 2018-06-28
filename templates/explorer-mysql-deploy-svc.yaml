@@ -1,0 +1,39 @@
+{{- $network := $.Values.fabricNetwork -}}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ $network }}-explorer-mysql
+spec:
+  selector:
+    app: {{ $network }}-explorer-mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ $network }}-explorer-mysql-deployment
+  labels:
+    app: {{ $network }}-explorer-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ $network }}-explorer-mysql
+  template:
+    metadata:
+      labels:
+        app: {{ $network }}-explorer-mysql
+    spec:
+      containers:
+        - name: {{ $network }}-explorer-mysql
+          image: {{ $.Values.dockerImageRegistry }}/fabric-explorer-mysql:1.0
+          imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
+          ports:
+            - containerPort: 3306
+              name: mysql-port
+          env:
+            # Below plain-text password is used for demo only!
+            - name: MYSQL_ROOT_PASSWORD
+              value: "passw0rd"

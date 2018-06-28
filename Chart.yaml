@@ -1,0 +1,9 @@
+apiVersion: v1
+appVersion: 1.1.0
+description: Hyperledger Fabric Helm chart for Kubernetes on Qloud Container
+  Service
+home: https://hyperledger.org/projects/fabric
+name: qloud-hyperledger-fabric
+sources:
+- https://github.com/hyperledger/fabric
+version: 0.2.1

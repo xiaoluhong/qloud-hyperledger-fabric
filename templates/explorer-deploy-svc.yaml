@@ -1,0 +1,57 @@
+{{ if .Values.explorer.enabled }}
+{{- $network := $.Values.fabricNetwork -}}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ $network }}-explorer
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{ $network }}-explorer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ $network }}-explorer-deployment
+  labels:
+    app: {{ $network }}-explorer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ $network }}-explorer
+  template:
+    metadata:
+      labels:
+        app: {{ $network }}-explorer
+    spec:
+      containers:
+        - name: {{ $network }}-explorer
+          image: {{ $.Values.dockerImageRegistry }}/fabric-explorer:1.0
+          imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
+          ports:
+            - containerPort: 8080
+              name: explorer-port
+          volumeMounts:
+            - name: crypto
+              mountPath: /blockchain-explorer/artifacts
+            - name: config-json
+              mountPath: /blockchain-explorer/config.json
+      initContainers:
+        - name: check-mysql
+          image: {{ $.Values.dockerImageRegistry }}/fabric-tools:x86_64-{{ $.Values.hyperledgerFabricVersion }}
+          imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
+          command: ['sh', '-c']
+          args: ['until curl {{ $network }}-explorer-mysql:3306; do echo waiting for mysql; sleep 3; done; ']
+      volumes:
+        - name: crypto
+          hostPath:
+            path: "/data/fabric/{{ $network }}/sdk/channel"
+        - name: config-json
+          hostPath:
+            path: "/data/fabric/{{ $network }}/config/explorer/config.json"
+{{ end }}
