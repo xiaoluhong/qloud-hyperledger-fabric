@@ -21,13 +21,13 @@ spec:
           command:
           - ls
           - /var/hyperledger/production/INIT-COMPLETED
-        initialDelaySeconds: 5
-        periodSeconds: 5
+        initialDelaySeconds: 2
+        periodSeconds: 2
   initContainers:
     - name: check-generator
       image: hyperledger/fabric-tools:x86_64-{{ $.Values.hyperledgerFabricVersion }}
       imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
-      command: ['sh', '-c', 'sleep 5; until [ -f /var/hyperledger/production/GENERATION-COMPLETED ]; do echo waiting for fabric-network-generator; sleep 5; done; sleep 5;']
+      command: ['sh', '-c', 'sleep 2; until [ -f /var/hyperledger/production/GENERATION-COMPLETED ]; do echo waiting for fabric-network-generator; sleep 2; done; sleep 2;']
       volumeMounts:
         - name: fabric-network-root
           mountPath: /var/hyperledger/production
