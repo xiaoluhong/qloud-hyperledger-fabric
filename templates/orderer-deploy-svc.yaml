@@ -70,7 +70,7 @@ spec:
           image: hyperledger/fabric-tools:x86_64-{{ $.Values.hyperledgerFabricVersion }}
           imagePullPolicy: {{ $.Values.imagePullPolicy | quote }}
           command: ['sh', '-c']
-          args: ['until echo dump | nc -w 3 {{ $network }}-zookeeper1 2181 | grep brokers; do echo waiting for kafka brokers; sleep 3; done;']
+          args: ['until echo dump | nc -w 3 {{ $network }}-zookeeper1 2181 | grep brokers; do echo waiting for kafka brokers; sleep 1; done;']
       volumes:
         - name: data
           hostPath:

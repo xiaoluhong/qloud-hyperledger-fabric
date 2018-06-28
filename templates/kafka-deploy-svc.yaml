@@ -74,7 +74,7 @@ spec:
           image: hyperledger/fabric-tools:x86_64-1.1.0
           imagePullPolicy: {{ $.Values.imagePullPolicy | quote }}
           command: ['sh', '-c']
-          args: ['sleep 5; until echo stat | nc -w 3 {{ $network }}-zookeeper1 2181; do echo waiting for {{ $network }}-zookeeper1; sleep 3; done; until echo stat | nc -w 3 {{ $network }}-zookeeper2 2181; do echo waiting for {{ $network }}-zookeeper2; sleep 3; done; until echo stat | nc -w 3 {{ $network }}-zookeeper3 2181; do echo waiting for {{ $network }}-zookeeper3; sleep 3; done; sleep 5;']
+          args: ['sleep 1; until echo stat | nc -w 3 {{ $network }}-zookeeper1 2181; do echo waiting for {{ $network }}-zookeeper1; sleep 1; done; until echo stat | nc -w 3 {{ $network }}-zookeeper2 2181; do echo waiting for {{ $network }}-zookeeper2; sleep 1; done; until echo stat | nc -w 3 {{ $network }}-zookeeper3 2181; do echo waiting for {{ $network }}-zookeeper3; sleep 1; done; sleep 1;']
       volumes:
         - name: data
           hostPath:

@@ -56,8 +56,8 @@ spec:
               command:
               - ls
               - /output/fabric/{{ $.Values.fabricNetwork }}/GENERATION-COMPLETED
-            initialDelaySeconds: 5
-            periodSeconds: 5
+            initialDelaySeconds: 1
+            periodSeconds: 1
       volumes:
         - name: fabric-root
           hostPath:

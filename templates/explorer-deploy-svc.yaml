@@ -46,7 +46,7 @@ spec:
           image: {{ $.Values.dockerImageRegistry }}/fabric-tools:x86_64-{{ $.Values.hyperledgerFabricVersion }}
           imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
           command: ['sh', '-c']
-          args: ['until curl {{ $network }}-explorer-mysql:3306; do echo waiting for mysql; sleep 3; done; ']
+          args: ['until curl {{ $network }}-explorer-mysql:3306; do echo waiting for mysql; sleep 1; done; ']
       volumes:
         - name: crypto
           hostPath:

@@ -67,7 +67,7 @@ spec:
         - name: check-fabric-init
           image: hyperledger/fabric-tools:x86_64-{{ $.Values.hyperledgerFabricVersion }}
           imagePullPolicy: {{ $.Values.imagePullPolicy | quote }}
-          command: ['sh', '-c', 'sleep 5; until ls /var/hyperledger/production/INIT-COMPLETED; do echo waiting for fabric-init; sleep 5; done; sleep 5;']
+          command: ['sh', '-c', 'sleep 1; until ls /var/hyperledger/production/INIT-COMPLETED; do echo waiting for fabric-init; sleep 1; done; sleep 1;']
           volumeMounts:
             - name: fabric-network-root
               mountPath: /var/hyperledger/production

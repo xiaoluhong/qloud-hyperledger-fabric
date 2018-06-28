@@ -136,7 +136,7 @@ spec:
           imagePullPolicy: {{ $.Values.imagePullPolicy | quote }}
           command: ['sh', '-c']
           args: ['{{- range $loopIndex, $ordererIndex := untilStep 1 (int (add (int $.Values.ordererNum) 1)) 1 -}}
-                    until nc -w 3 {{ $network }}-orderer{{ $ordererIndex }} 7050; do echo waiting for orderer{{ $ordererIndex }}; sleep 3; done; {{ end -}}
+                    until nc -w 3 {{ $network }}-orderer{{ $ordererIndex }} 7050; do echo waiting for orderer{{ $ordererIndex }}; sleep 1; done; {{ end -}}
                 ']
       volumes:
         - name: couchdb-data
