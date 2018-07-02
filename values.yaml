@@ -17,7 +17,7 @@ fabricChannel: qcchannel
 
 ## Number of orderers
 ## 
-ordererNum: 3
+ordererNum: 2
 
 ## Domain of orderers
 ## This domain will be used mainly for certification generation
@@ -33,7 +33,7 @@ peerDomain: qloudchain.com
 ## There will be two peers created for each organization for HA. So the total number of peers
 ## will be (orgNum * 2)
 ##
-orgNum: 2
+orgNum: 1
 
 ## NodePort list for CA services
 ## We use JSON-format sequence so that it will be easier for user to set via CLI
