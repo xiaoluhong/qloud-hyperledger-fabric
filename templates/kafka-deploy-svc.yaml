@@ -9,6 +9,7 @@ metadata:
 spec:
   # Use headless service to tolerate k8s env which disables hairpin mode
   clusterIP: None
+  type: ClusterIP
   selector:
     app: {{ $network }}-kafka{{ $brokerIndex }}
   ports:

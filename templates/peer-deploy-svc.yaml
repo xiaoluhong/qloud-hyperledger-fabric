@@ -8,17 +8,18 @@ apiVersion: v1
 metadata:
   name: {{ $network }}-peer{{ $peerIndex }}
 spec:
-  type: NodePort
+  clusterIP: None
+  type: ClusterIP
   selector:
     app: {{ $network }}-peer{{ $peerIndex }}
   ports:
     - protocol: TCP
       port: 7051
-      nodePort: {{ index $.Values.peerExternalGrpcPortList $loopIndex }}
+      targetPort: 7051
       name: grpc-port
     - protocol: TCP
       port: 7053
-      nodePort: {{ index $.Values.peerExternalEventPortList $loopIndex }}
+      targetPort: 7053
       name: event-port
 ---
 apiVersion: apps/v1beta2

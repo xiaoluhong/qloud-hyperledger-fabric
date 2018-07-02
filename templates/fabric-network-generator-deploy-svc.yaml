@@ -3,6 +3,8 @@ apiVersion: v1
 metadata:
   name: fabric-network-generator-svc
 spec:
+  type: ClusterIP
+  clusterIP: None
   selector:
     app: fabric-network-generator
   ports:
