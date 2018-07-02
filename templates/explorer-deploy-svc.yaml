@@ -5,7 +5,7 @@ apiVersion: v1
 metadata:
   name: {{ $network }}-explorer
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: {{ $network }}-explorer
   ports:
